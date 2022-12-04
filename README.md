@@ -21,3 +21,6 @@ npm test
 ```sh
 npm run storybook
 ```
+
+# Log
+- 2022/12/04 Setup environment -git 
