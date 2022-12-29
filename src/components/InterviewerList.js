@@ -11,6 +11,7 @@ export default function InterviewerList(props) {
       <ul className="interviewers__list">
         {interviewers.map((viewer) => (
           <InterviewerListItem
+            key={viewer.id}
             name={viewer.name}
             avatar={viewer.avatar}
             selected={viewer.id === value }
