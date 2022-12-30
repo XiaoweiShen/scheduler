@@ -3,7 +3,7 @@ import DayList from "./DayList";
 import "styles/Application.scss";
 import Appointment from "./Appointment";
 import axios from "axios";
-import useVisualMode from "hooks/useVisualMode";
+//import useVisualMode from "hooks/useVisualMode";
 import {
   getAppointmentsForDay,
   getInterview,
@@ -37,21 +37,21 @@ export default function Application(props) {
   }, []);
 
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-    //console.log("new interview:",id, interview);
-    //setState({ ...state, appointments });
-    return axios.put(`/api/appointments/${id}`,appointment)
-           .then(()=>setState({ ...state, appointments }))
-       ;
-      
-    };
+    return new Promise((resolve,reject)=>{
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview },
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment,
+      };
+      axios.put(`/api/appointments/${id}`,appointment)
+      .then(()=>{setState({...state,appointments})})
+      .then(()=>resolve("success!"))
+      .catch((error)=>reject(error))
+    });
+  }
 
   // get appointments
   const appointments_array = getAppointmentsForDay(state, state.day);
@@ -61,8 +61,7 @@ export default function Application(props) {
     // check if appointment is null as the first render is an empty array
     if (appointment) {
       const interview = getInterview(state, appointment.interview);
-      console.log("interview",interview);
-        return (
+      return (
         <Appointment
           key={appointment.id}
           id={appointment.id}

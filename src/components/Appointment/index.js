@@ -42,10 +42,10 @@ export default function Appointment(props) {
       interviewer:interviewer
     };
     //transition(SAVING);
-    bookinterview(id,interview);
-    transition(SHOW);
-    //  .then(()=>transition(SHOW))
-    //  .catch(()=>{transition(ERRORONSAVE)})
+    bookinterview(id,interview)
+    // transition(SHOW);
+    .then(()=>transition(SHOW));
+    //.catch(()=>{transition(ERRORONSAVE)})
   }
   
 
