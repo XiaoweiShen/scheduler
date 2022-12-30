@@ -1,8 +1,10 @@
 import React from "react";
 import InterviewerListItem from "components/InterviewerListItem";
 
-export default function Show({student,interviewer,onEdit,onDelete}) {
-  
+export default function Show({interview,onEdit,onDelete}) {
+  let student = '';
+  let interviewer ={};
+  if (interview) {student=interview.student;interviewer=interview.interviewer;}
   return (
 <main className="appointment__card appointment__card--show">
   <section className="appointment__card-left">

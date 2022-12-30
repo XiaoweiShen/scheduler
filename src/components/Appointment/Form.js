@@ -6,7 +6,7 @@ import Button from "components/Button";
 export default function Form({interviewer,interviewers,onSave,onCancel}) {
   
   const [Student,setStudent]=useState("");
-  const [Interviewer,setInterviewer]=useState(interviewer||null);
+  const [Interviewer,setInterviewer]=useState(null);
 
   const reset = ()=>{
     setStudent('');
@@ -34,13 +34,13 @@ export default function Form({interviewer,interviewers,onSave,onCancel}) {
     <InterviewerList 
       interviewers={interviewers}
       value={Interviewer}
-      onChange={(e)=>setInterviewer(e.target.value)}      
+      onChange={setInterviewer}      
     />
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={(e)=>cancel()}>Cancel</Button>
-      <Button confirm onClick={onSave}>Save</Button>
+      <Button confirm onClick={e=>onSave(Student,Interviewer)}>Save</Button>
     </section>
   </section>
 </main>

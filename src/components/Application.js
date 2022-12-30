@@ -3,11 +3,13 @@ import DayList from "./DayList";
 import "styles/Application.scss";
 import Appointment from "./Appointment";
 import axios from "axios";
+import useVisualMode from "hooks/useVisualMode";
 import {
   getAppointmentsForDay,
   getInterview,
   getInterviewersForDay,
 } from "helper/selectors";
+
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -16,6 +18,8 @@ export default function Application(props) {
     appointments: {},
     interviewers: {},
   });
+
+
   const setDay = (day) => setState({ ...state, day });
   useEffect(() => {
     Promise.all([
@@ -28,23 +32,26 @@ export default function Application(props) {
         days: all[0].data,
         appointments: all[1].data,
         interviewers: all[2].data,
-        
-      }));
+       }));
     });
   }, []);
 
-  // const bookInterview = (id, interview) => {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview },
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment,
-  //   };
-  //   console.log(id, interview);
-  //   setState({ ...state, appointments });
-  // };
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    //console.log("new interview:",id, interview);
+    //setState({ ...state, appointments });
+    return axios.put(`/api/appointments/${id}`,appointment)
+           .then(()=>setState({ ...state, appointments }))
+       ;
+      
+    };
 
   // get appointments
   const appointments_array = getAppointmentsForDay(state, state.day);
@@ -54,6 +61,7 @@ export default function Application(props) {
     // check if appointment is null as the first render is an empty array
     if (appointment) {
       const interview = getInterview(state, appointment.interview);
+      console.log("interview",interview);
         return (
         <Appointment
           key={appointment.id}
@@ -61,7 +69,7 @@ export default function Application(props) {
           time={appointment.time}
           interview={interview}
           interviewers={interviewers_array}
-          // onAdd={bookInterview}
+          bookinterview={bookInterview}
         />
       );
     } else return null;

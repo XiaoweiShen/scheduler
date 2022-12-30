@@ -8,21 +8,46 @@ import useVisualMode from "hooks/useVisualMode";
 
 
 export default function Appointment(props) {
-   const {id,time,interview,interviewers,bookInterview} = props;
-   const {EMPTY,SHOW,CREATE}= {EMPTY:"EMPTY",SHOW:"SHOW",CREATE:"CREATE"};
+   const {id,time,interview,interviewers,bookinterview} = props;
+   const {
+    EMPTY,
+    SHOW,
+    CREATE,
+    // SAVING,
+    // COMFIRM,
+    // EDIT,
+    // ERRORONDEL,
+    // ERRORONSAVE,
+    // DELETING
+  }
+    = {
+      EMPTY:"EMPTY",
+      SHOW:"SHOW",
+      CREATE:"CREATE",
+      SAVING:"SAVING",
+      COMFIRM:"CONFIRM",
+      EDIT:"EDIT",
+      ERRORONSAVE:"ERRORONSAVE",
+      ERRORONDEL:"ERRORONDEL",
+      DELETING:"DELETING"
+    };
       
    const {mode, transition,back}= useVisualMode(
     interview ? SHOW : EMPTY
    );
 
-  // const saveInterview = (stuName,interviewer)=>{
-  //   const interview ={
-  //     Student:stuName,
-  //     Interviewer:interviewer
-  //   }
-  //   bookInterview(id,interview);
-  //   transition(SHOW);
-  // }
+  function save(name,interviewer){
+    const interview ={
+      student:name,
+      interviewer:interviewer
+    };
+    //transition(SAVING);
+    bookinterview(id,interview);
+    transition(SHOW);
+    //  .then(()=>transition(SHOW))
+    //  .catch(()=>{transition(ERRORONSAVE)})
+  }
+  
 
   const onAdd = ()=>transition(CREATE);
   const onCancel = ()=>back();
@@ -31,20 +56,13 @@ export default function Appointment(props) {
       <article className="appointment">
         <Header time={time} />
           {mode === EMPTY&&<Empty onAdd={onAdd}></Empty>}
-          {mode === SHOW&&<Show student={interview.student} interviewer={interview.interviewer}></Show>}          
+          {mode === SHOW&&<Show interview = {interview}></Show>}          
           {mode === CREATE&& <Form
             interviewers={interviewers}
             onCancel={onCancel}
-            //onSave={e=>saveInterview}  
+            onSave={save}  
           />   
           }
-          
-          {/* {
-           interview?
-            <Show student={interview.student} interviewer={interview.interviewer}></Show>                 
-          :
-            <Empty></Empty>
-          } */}
       </article> 
     </Fragment>
    
