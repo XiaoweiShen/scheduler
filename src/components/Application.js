@@ -11,12 +11,7 @@ import useApplicationData from "hooks/useApplicationData"
 import "styles/Application.scss";
 
 export default function Application(props) {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview 
-  } = useApplicationData();
+  const {state,setDay,setInterview} = useApplicationData();
 
   // get appointments
   const appointments_array = getAppointmentsForDay(state, state.day);
@@ -31,8 +26,7 @@ export default function Application(props) {
         {...appointment}
         interview={interview}
         interviewers={interviewers_array}
-        bookinterview={bookInterview}
-        cancelinterview={cancelInterview}
+        setinterview={setInterview}
       />
     );
   });

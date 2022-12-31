@@ -10,8 +10,7 @@ import Confirm from "./Confirm";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
-  const { id, time, interview, interviewers, bookinterview, cancelinterview } =
-    props;
+  const { id, time, interview, interviewers, setinterview} = props;
   const {EMPTY,SHOW,CREATE,SAVING,CONFIRM,EDIT,ERRORONDEL,ERRORONSAVE,DELETING,
   } = {
     EMPTY: "EMPTY",
@@ -35,7 +34,8 @@ export default function Appointment(props) {
       student: name,
       interviewer: interviewer,
     };
-    bookinterview(id, interview)
+    //bookinterview(id, interview)
+    setinterview(id,interview)
       .then(() => {
         transition(SHOW);
        // window.location.reload();
@@ -47,7 +47,7 @@ export default function Appointment(props) {
 
   function onDelete() {
     transition(DELETING, true);
-    cancelinterview(id)
+    setinterview(id)
       .then(() => {
         transition(EMPTY);
         //window.location.reload();

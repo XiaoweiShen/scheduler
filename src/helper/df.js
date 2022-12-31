@@ -39,3 +39,71 @@ console.log(aaa);
 let da = [];
 da=[...days,days[0]={...days[0],spots:20}];
 console.log(days[0]);
+
+
+function reducer(state, action) {
+  if (action.type === "add") {
+    return state + action.value;
+  }
+  if (action.type === "subtract") {
+    return state - action.value;
+  }
+
+  return state;
+}
+
+function BoringCalculator() {
+  const [state, dispatch] = useReducer(reducer, 0);
+
+  return (
+    <div>
+      <button onClick={() => dispatch({ type: "add", value: 3 })}>Add 3</button>
+      <button onClick={() => dispatch({ type: "subtract", value: 5 })}> Subtract 5</button>
+      <button onClick={() => dispatch({ type: "add", value: 7 })}>Add 7</button>
+      <h2>{state}</h2>
+    </div>
+  );
+}
+
+// const bookInterview = (id, interview) => {
+  //   return new Promise((resolve, reject) => {
+  //     const appointment = {
+  //       ...state.appointments[id],
+  //       interview: { ...interview },
+  //     };
+  //     const appointments = {
+  //       ...state.appointments,
+  //       [id]: appointment,
+  //     };
+  //     const index = dayIndex[state.day]*1;
+  //     state.days[index]={...state.days[index],spots:state.days[index].spots-1};
+       
+  //     axios
+  //       .put(`/api/appointments/${id}`, appointment)
+  //       .then(() => setState({ ...state, appointments,days:state.days}))
+  //       .then(() => resolve("success!"))
+  //       .catch((error) => reject(error.message));
+  //   });
+  // };
+
+  // const cancelInterview = (id)=> {
+  //   return new Promise((resolve,reject)=>{
+  //     const appointment = {
+  //       ...state.appointments[id],
+  //       interview: null,
+  //     };
+  //     const appointments = {
+  //       ...state.appointments,
+  //       [id]: appointment,
+  //     };
+
+  //     const index = dayIndex[state.day]*1;
+  //     state.days[index]={...state.days[index],spots:state.days[index].spots+1};
+      
+  //     axios
+  //       .delete(`/api/appointments/${id}`)
+  //       .then(() => setState({ ...state, appointments,days:state.days}))
+  //       .then(() => resolve("success!"))
+  //       .catch((error) => reject(error.message));
+  //   })
+  // }
