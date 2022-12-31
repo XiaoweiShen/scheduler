@@ -12,16 +12,7 @@ import useVisualMode from "hooks/useVisualMode";
 export default function Appointment(props) {
   const { id, time, interview, interviewers, bookinterview, cancelinterview } =
     props;
-  const {
-    EMPTY,
-    SHOW,
-    CREATE,
-    SAVING,
-    CONFIRM,
-    EDIT,
-    ERRORONDEL,
-    ERRORONSAVE,
-    DELETING,
+  const {EMPTY,SHOW,CREATE,SAVING,CONFIRM,EDIT,ERRORONDEL,ERRORONSAVE,DELETING,
   } = {
     EMPTY: "EMPTY",
     SHOW: "SHOW",
@@ -34,7 +25,7 @@ export default function Appointment(props) {
     DELETING: "DELETING",
   };
 
-  const { mode, history, transition, back } = useVisualMode(
+  const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );
 
@@ -47,7 +38,7 @@ export default function Appointment(props) {
     bookinterview(id, interview)
       .then(() => {
         transition(SHOW);
-        window.location.reload();
+       // window.location.reload();
       })
       .catch(() => {
         transition(ERRORONSAVE, true);
@@ -59,7 +50,7 @@ export default function Appointment(props) {
     cancelinterview(id)
       .then(() => {
         transition(EMPTY);
-        window.location.reload();
+        //window.location.reload();
       })
       .catch(() => transition(ERRORONDEL, true));
   }
