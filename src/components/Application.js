@@ -10,7 +10,6 @@ import {
   getInterviewersForDay,
 } from "helper/selectors";
 
-
 export default function Application(props) {
   const [state, setState] = useState({
     days: [],
@@ -18,7 +17,6 @@ export default function Application(props) {
     appointments: {},
     interviewers: {},
   });
-
 
   const setDay = (day) => setState({ ...state, day });
   useEffect(() => {
@@ -32,12 +30,12 @@ export default function Application(props) {
         days: all[0].data,
         appointments: all[1].data,
         interviewers: all[2].data,
-       }));
+      }));
     });
   }, []);
 
   const bookInterview = (id, interview) => {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview },
@@ -46,11 +44,32 @@ export default function Application(props) {
         ...state.appointments,
         [id]: appointment,
       };
-      axios.put(`/api/appointments/${id}`,appointment)
-      .then(()=>{setState({...state,appointments})})
-      .then(()=>resolve("success!"))
-      .catch((error)=>reject(error))
+      
+      axios
+        .put(`/api/appointments/${id}`, appointment)
+        .then(() => setState({ ...state, appointments}))
+        .then(() => resolve("success!"))
+        .catch((error) => reject(error.message));
     });
+  };
+
+  const cancelInterview = (id)=> {
+    return new Promise((resolve,reject)=>{
+      const appointment = {
+        ...state.appointments[id],
+        interview: null,
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment,
+      };
+      axios
+        .delete(`/api/appointments/${id}`)
+        .then(() => setState({ ...state, appointments }))
+        //.then(() => window.location.reload());
+        .then(() => resolve("success!"))
+        .catch((error) => reject(error.message));
+    })
   }
 
   // get appointments
@@ -59,19 +78,18 @@ export default function Application(props) {
   // map appointment_array to JSX elements
   const schedule = appointments_array.map((appointment) => {
     // check if appointment is null as the first render is an empty array
-    if (appointment) {
-      const interview = getInterview(state, appointment.interview);
-      return (
-        <Appointment
-          key={appointment.id}
-          id={appointment.id}
-          time={appointment.time}
-          interview={interview}
-          interviewers={interviewers_array}
-          bookinterview={bookInterview}
-        />
-      );
-    } else return null;
+    const interview = getInterview(state, appointment.interview);
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={interviewers_array}
+        bookinterview={bookInterview}
+        cancelinterview={cancelInterview}
+      />
+    );
   });
 
   return (
@@ -94,11 +112,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
-        <Appointment
-          key="last"
-          time="5pm"
-          interviewers={interviewers_array}
-        ></Appointment>
+        <Appointment key="last" time="5pm"></Appointment>
       </section>
     </main>
   );
