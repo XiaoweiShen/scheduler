@@ -32,3 +32,23 @@ export function getInterview(state, interview) {
   } else return null;
 }
 
+export function getDayForAppointment(days, appointmentId) {
+  return days.reduce((acc, cur, idx) => {
+    acc = cur.appointments.includes(appointmentId) ? idx : acc;
+    return acc;
+  }, "");
+}
+
+export function eqinterview(interview_state, interview_msg) {
+  let flag = true;
+  if (interview_msg !== null && interview_state !== null) {
+    if (
+      interview_msg.student === interview_state.student &&
+      interview_msg.interviewer === interview_state.interviewer
+    )
+      flag = false;
+  } else {
+    if (interview_msg === null && interview_state === null) flag = false;
+  }
+  return flag;
+}

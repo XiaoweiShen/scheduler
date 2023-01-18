@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
-export default function Form({ id, interview, interviewers, onSave, onCancel }) {
+export default function Form({ id, interview,interviewers, onSave, onCancel }) {
   const { student, interviewer } = interview
     ? interview
     : { student: undefined, interviewer: undefined };
@@ -34,6 +34,7 @@ export default function Form({ id, interview, interviewers, onSave, onCancel }) 
             name="name"
             type="text"
             placeholder="Enter Student Name"
+            data-testid="student-name-input"
             onChange={(e) => setStudent(e.target.value)}
             value={Student}
           />

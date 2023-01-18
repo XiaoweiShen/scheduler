@@ -6,19 +6,21 @@ import {
   getInterview,
   getInterviewersForDay,
 } from "helper/selectors";
-import useApplicationData from "hooks/useApplicationData"
+
+//import useApplicationData from "hooks/useApplicationData"
+import useApplicationDataReducer from "hooks/useApplicationDataReducer";
 
 import "styles/Application.scss";
 
 export default function Application(props) {
-  const {state,setDay,setInterview} = useApplicationData();
+  //  const {state,setDay,setInterview} = useApplicationData();
+  const { state, setDay, setInterview } = useApplicationDataReducer();
 
-  // get appointments
   const appointments_array = getAppointmentsForDay(state, state.day);
+
   const interviewers_array = getInterviewersForDay(state, state.day);
-  // map appointment_array to JSX elements
+
   const schedule = appointments_array.map((appointment) => {
-  // check if appointment is null as the first render is an empty array
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment

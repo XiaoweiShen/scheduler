@@ -42,7 +42,7 @@ export default function useApplicationData(props) {
 
   const setInterview = (id, interview) => {
     return new Promise((resolve, reject) => {
-      const op = interview ? 1 : -1;
+      const op = interview ? -1 : 1;
       const url = `/api/appointments/${id}`;
       //const svrop = interview?axios.put(url,appointment):axios.delete(url)
       const appointment = {
@@ -56,13 +56,11 @@ export default function useApplicationData(props) {
       };
 
       const index = dayIndex[state.day] * 1;
-      state.days[index] = {
-        ...state.days[index],
-        spots: state.days[index].spots + op,
-      };
-
+      const days = {...state.days};
+      days[index].spots+=op;
+      
       (interview ? axios.put(url, appointment) : axios.delete(url))
-        .then(() => setState({ ...state, appointments, days: state.days }))
+        .then(() => setState({ ...state, appointments, days:Object.values(days)}))
         .then(() => resolve("success!"))
         .catch((error) => reject(error.message));
     });
