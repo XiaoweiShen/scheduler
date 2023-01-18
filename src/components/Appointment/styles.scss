@@ -6,6 +6,8 @@
 
 $appointment-height: 11rem;
 
+
+
 .appointment {
   &__add {
     min-height: $appointment-height;
@@ -49,7 +51,13 @@ $appointment-height: 11rem;
       flex-direction: column;
       justify-content: space-between;
       min-width: 50%;
+      
+      &-validate{
+        color:$danger-color;
+        margin-block-start: 0em;
+      }
     }
+
 
     &-right {
       display: flex;
@@ -62,7 +70,7 @@ $appointment-height: 11rem;
       background-color: $dark-background;
       display: flex;
     }
-
+   
     &--show {
       color: rgba($booked-color, $active-opacity);
       background: linear-gradient(
@@ -171,4 +179,6 @@ $appointment-height: 11rem;
     color: $danger-color;
     margin-bottom: 1rem;
   }
+
+  
 }

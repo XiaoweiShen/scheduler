@@ -56,7 +56,6 @@ export default function Appointment(props) {
   if(mode === SHOW && !interview) transition(EMPTY);
   if(mode === EMPTY && interview) transition(SHOW);
 
-
   return (
     <Fragment>
       <article className="appointment">

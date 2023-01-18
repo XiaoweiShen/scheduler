@@ -8,6 +8,7 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
     : { student: undefined, interviewer: undefined };
   const [Student, setStudent] = useState(student || "");
   const [Interviewer, setInterviewer] = useState(interviewer?interviewer.id:null);
+  const [errcode,setErrCode]=useState('');
   //console.log("interviewer", Interviewer);
 
   const reset = () => {
@@ -19,6 +20,14 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
     reset();
     onCancel();
   };
+
+  const validate=(student, interviewer)=>{
+    if(!student) return (setErrCode('Student name cannot be blank'));
+    if(!interviewer) return (setErrCode('Please select an interviewer'));
+    setErrCode('');
+    onSave(student,interviewer);
+  }
+
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -38,6 +47,7 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
             onChange={(e) => setStudent(e.target.value)}
             value={Student}
           />
+          <p className="appointment__card-left-validate" >{errcode}</p>
         </form>
         <InterviewerList
           interviewers={interviewers}
@@ -50,7 +60,7 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
           <Button danger onClick={(e) => cancel()}>
             Cancel
           </Button>
-          <Button confirm onClick={(e) => onSave(Student, Interviewer)}>
+          <Button confirm onClick={(e) => validate(Student, Interviewer)}>
             Save
           </Button>
         </section>
