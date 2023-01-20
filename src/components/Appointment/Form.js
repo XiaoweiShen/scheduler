@@ -44,7 +44,10 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
             type="text"
             placeholder="Enter Student Name"
             data-testid="student-name-input"
-            onChange={(e) => setStudent(e.target.value)}
+            onChange={(e) => 
+               {setStudent(e.target.value);
+                setErrCode("");
+              }}
             value={Student}
           />
           <p className="appointment__card-left-validate" >{errcode}</p>
