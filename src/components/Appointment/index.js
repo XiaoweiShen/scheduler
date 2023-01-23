@@ -32,11 +32,13 @@ export default function Appointment(props) {
       student: name,
       interviewer: interviewer,
     };
+    
     setinterview(id, interview)
       .then(() => {
-        transition(SHOW);
-      })
-      .catch(() => {
+         transition(SHOW);
+       })
+      .catch((err) => {
+        console.log(err);
         transition(ERRORONSAVE, true);
       });
   }
@@ -58,7 +60,7 @@ export default function Appointment(props) {
 
   return (
     <Fragment>
-      <article className="appointment">
+      <article className="appointment" data-testid="appointment">
         <Header time={time} />
         {mode === EMPTY && <Empty onAdd={onAdd}></Empty>}
         {mode === SHOW && (

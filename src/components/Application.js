@@ -15,7 +15,7 @@ import "styles/Application.scss";
 export default function Application(props) {
   //  const {state,setDay,setInterview} = useApplicationData();
   const { state, setDay, setInterview } = useApplicationDataReducer();
-
+ 
   const appointments_array = getAppointmentsForDay(state, state.day);
 
   const interviewers_array = getInterviewersForDay(state, state.day);

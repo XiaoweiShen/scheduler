@@ -33,12 +33,13 @@ function reducer(state, action) {
       const index = getDayForAppointment(state.days, id);
       const days = { ...state.days };
       days[index] = days[index] || null;
+      const spotsOfDay = days[index]["appointments"].length;
       days[index]["spots"] = days[index]["spots"] || null;
       days[index]["appointments"] = days[index]["appointments"] || null;
       if (days[index]["appointments"]) {
         const res = days[index]["appointments"].reduce((acc, cur) => {
           return (acc = state.appointments[cur].interview ? acc - 1 : acc);
-        }, 5);
+        }, spotsOfDay);
         days[index]["spots"] = res;
       }
       return { ...state, days: Object.values(days) };
@@ -95,16 +96,17 @@ export default function useApplicationData(props) {
         interview: interview ? { ...interview } : null,
       };
       (interview ? axios.put(url, appointment) : axios.delete(url))
-        .then(() =>
+        .then(() =>{
           dispatch({
             type: ACTIONS.SETINTERVIEW,
             id: id,
             appointment: appointment,
           })
-        )
+        }
+      )
         .then(() => setDaySpots(id))
         .then(() => resolve("success!"))
-        .catch((error) => reject(error.message));
+        .catch((err) => reject(err));
     });
   };
 

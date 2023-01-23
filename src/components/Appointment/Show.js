@@ -5,6 +5,7 @@ export default function Show({ interview, onEdit, onDelete }) {
   const { student, interviewer } = interview
     ? interview
     : { student: "", interviewer: {} };
+   
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">
