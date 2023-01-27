@@ -18,7 +18,7 @@
 
 ## Project snapshot
 
-!["ERD of the project's database"](https://github.com/XiaoweiShen/LightBnB/blob/main/readme_imgs/Slide1.JPG)
-!["DDL:  project directory and create a schema file"](https://github.com/XiaoweiShen/LightBnB/blob/main/readme_imgs/Slide2.JPG)
+!["Add and edit a appointment"](https://github.com/XiaoweiShen/scheduler/doc/add_edit_appointment.jpg)
+!["Deleting and Confirm"](https://github.com/XiaoweiShen/scheduler/doc/delete_confirm.jpg)
 
 
