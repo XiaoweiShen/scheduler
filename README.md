@@ -19,6 +19,7 @@
 ## Project snapshot
 
 !["Add and edit a appointment"](/doc/add_edit_appointment.jpg)
+
 !["Deleting and Confirm"](/doc/delete_confirm.jpg)
 
 
