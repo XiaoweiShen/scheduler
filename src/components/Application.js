@@ -29,7 +29,6 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers_array}
         setinterview={setInterview}
-        
       />
     );
   });

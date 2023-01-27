@@ -10,9 +10,18 @@ import Confirm from "./Confirm";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
- const { id, time, interview, interviewers, setinterview } = props;
- const { EMPTY,SHOW,CREATE,SAVING,CONFIRM,EDIT,ERRORONDEL,ERRORONSAVE,DELETING} 
- = {
+  const { id, time, interview, interviewers, setinterview } = props;
+  const {
+    EMPTY,
+    SHOW,
+    CREATE,
+    SAVING,
+    CONFIRM,
+    EDIT,
+    ERRORONDEL,
+    ERRORONSAVE,
+    DELETING,
+  } = {
     EMPTY: "EMPTY",
     SHOW: "SHOW",
     CREATE: "CREATE",
@@ -21,7 +30,7 @@ export default function Appointment(props) {
     EDIT: "EDIT",
     ERRORONSAVE: "ERRORONSAVE",
     ERRORONDEL: "ERRORONDEL",
-    DELETING: "DELETING"
+    DELETING: "DELETING",
   };
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
@@ -32,11 +41,11 @@ export default function Appointment(props) {
       student: name,
       interviewer: interviewer,
     };
-    
+
     setinterview(id, interview)
       .then(() => {
-         transition(SHOW);
-       })
+        transition(SHOW);
+      })
       .catch((err) => {
         console.log(err);
         transition(ERRORONSAVE, true);
@@ -55,8 +64,8 @@ export default function Appointment(props) {
   const onAdd = (e) => transition(CREATE);
   const onCancel = () => back();
 
-  if(mode === SHOW && !interview) transition(EMPTY);
-  if(mode === EMPTY && interview) transition(SHOW);
+  if (mode === SHOW && !interview) transition(EMPTY);
+  if (mode === EMPTY && interview) transition(SHOW);
 
   return (
     <Fragment>
@@ -84,9 +93,10 @@ export default function Appointment(props) {
         {mode === SAVING && <Status message={"Saving"}></Status>}
         {mode === DELETING && <Status message={"Deleting"}></Status>}
         {mode === ERRORONDEL && (
-          <Error message={"Can not cancel the interview"} onClose={onCancel}/>)}
+          <Error message={"Can not cancel the interview"} onClose={onCancel} />
+        )}
         {mode === ERRORONSAVE && (
-          <Error message={"Can not create the interview"} onClose={onCancel}/>
+          <Error message={"Can not create the interview"} onClose={onCancel} />
         )}
         {mode === CONFIRM && (
           <Confirm

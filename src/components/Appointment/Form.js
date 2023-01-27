@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
-export default function Form({ id, interview,interviewers, onSave, onCancel }) {
+export default function Form({
+  id,
+  interview,
+  interviewers,
+  onSave,
+  onCancel,
+}) {
   const { student, interviewer } = interview
     ? interview
     : { student: undefined, interviewer: undefined };
   const [Student, setStudent] = useState(student || "");
-  const [Interviewer, setInterviewer] = useState(interviewer?interviewer.id:null);
-  const [errcode,setErrCode]=useState('');
+  const [Interviewer, setInterviewer] = useState(
+    interviewer ? interviewer.id : null
+  );
+  const [errcode, setErrCode] = useState("");
   //console.log("interviewer", Interviewer);
 
   const reset = () => {
@@ -21,13 +29,12 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
     onCancel();
   };
 
-  const validate=(student, interviewer)=>{
-    if(!student) return (setErrCode('Student name cannot be blank'));
-    if(!interviewer) return (setErrCode('Please select an interviewer'));
-    setErrCode('');
-    onSave(student,interviewer);
-  }
-
+  const validate = (student, interviewer) => {
+    if (!student) return setErrCode("Student name cannot be blank");
+    if (!interviewer) return setErrCode("Please select an interviewer");
+    setErrCode("");
+    onSave(student, interviewer);
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -44,13 +51,13 @@ export default function Form({ id, interview,interviewers, onSave, onCancel }) {
             type="text"
             placeholder="Enter Student Name"
             data-testid="student-name-input"
-            onChange={(e) => 
-               {setStudent(e.target.value);
-                setErrCode("");
-              }}
+            onChange={(e) => {
+              setStudent(e.target.value);
+              setErrCode("");
+            }}
             value={Student}
           />
-          <p className="appointment__card-left-validate" >{errcode}</p>
+          <p className="appointment__card-left-validate">{errcode}</p>
         </form>
         <InterviewerList
           interviewers={interviewers}
