@@ -18,7 +18,7 @@
 
 ## Project snapshot
 
-!["Add and edit a appointment"](https://github.com/XiaoweiShen/scheduler/doc/add_edit_appointment.jpg)
-!["Deleting and Confirm"](https://github.com/XiaoweiShen/scheduler/doc/delete_confirm.jpg)
+!["Add and edit a appointment"]("./doc/add_edit_appointment.jpg")
+!["Deleting and Confirm"](/doc/delete_confirm.jpg)
 
 
