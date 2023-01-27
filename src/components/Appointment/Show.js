@@ -7,7 +7,8 @@ export default function Show({ interview, onEdit, onDelete }) {
     : { student: "", interviewer: {} };
    
   return (
-    <main className="appointment__card appointment__card--show">
+    <main className="appointment__card appointment__card--show"
+          data-testid = 'showitem'>
       <section className="appointment__card-left">
         <h2 className="text--regular">{student}</h2>
         <section className="interviewer">
@@ -16,8 +17,7 @@ export default function Show({ interview, onEdit, onDelete }) {
             {...interviewer}
             selected={true}
           ></InterviewerListItem>
-          {/* <h3 className="text--regular">{interviewer.name}</h3> */}
-        </section>
+         </section>
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

@@ -11,7 +11,11 @@ export default function DayListItem(props) {
   const spotFlag = props.spots === 1 ? "spot" : "spots";
 
   return (
-    <li onClick={() => props.setDay(props.name)} className={DayListItemClass} data-testid="day">
+    <li
+      onClick={() => props.setDay(props.name)}
+      className={DayListItemClass}
+      data-testid="day"
+    >
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">
         {props.spots === 0 ? "no" : props.spots} {spotFlag} remaining
