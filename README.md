@@ -17,8 +17,11 @@
       line 97-134: the error handling part need real axios , which can not run with previous test together, when need test these, need comment previous tests and import axios. 
 
 ## Project snapshot
+1. Add and edit an appointment
 
 !["Add and edit a appointment"](/doc/add_edit_appointment.jpg)
+
+2. Deleting and Confirm an appointment
 
 !["Deleting and Confirm"](/doc/delete_confirm.jpg)
 
