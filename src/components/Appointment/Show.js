@@ -1,5 +1,5 @@
 import React from "react";
-import InterviewerListItem from "components/InterviewerListItem";
+
 
 export default function Show({ interview, onEdit, onDelete }) {
   const { student, interviewer } = interview
@@ -13,10 +13,7 @@ export default function Show({ interview, onEdit, onDelete }) {
         <h2 className="text--regular">{student}</h2>
         <section className="interviewer">
           <h4 className="text--light">Interviewer</h4>
-          <InterviewerListItem
-            {...interviewer}
-            selected={true}
-          ></InterviewerListItem>
+          <h3 className="text--regular">{interviewer.name}</h3>
          </section>
       </section>
       <section className="appointment__card-right">

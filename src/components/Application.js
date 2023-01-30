@@ -1,25 +1,15 @@
 import React from "react";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import {
-  getAppointmentsForDay,
-  getInterview,
-  getInterviewersForDay,
-} from "helper/selectors";
+import {getAppointmentsForDay,getInterview,getInterviewersForDay} from "helper/selectors";
 
-//import useApplicationData from "hooks/useApplicationData"
-import useApplicationDataReducer from "hooks/useApplicationDataReducer";
-
+import useApplicationDataReducer from "../reducer/useApplicationDataReducer";
 import "styles/Application.scss";
 
 export default function Application(props) {
-  //  const {state,setDay,setInterview} = useApplicationData();
   const { state, setDay, setInterview } = useApplicationDataReducer();
- 
   const appointments_array = getAppointmentsForDay(state, state.day);
-
   const interviewers_array = getInterviewersForDay(state, state.day);
-
   const schedule = appointments_array.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (

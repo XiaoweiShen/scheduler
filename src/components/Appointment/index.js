@@ -11,27 +11,17 @@ import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
   const { id, time, interview, interviewers, setinterview } = props;
-  const {
-    EMPTY,
-    SHOW,
-    CREATE,
-    SAVING,
-    CONFIRM,
-    EDIT,
-    ERRORONDEL,
-    ERRORONSAVE,
-    DELETING,
-  } = {
-    EMPTY: "EMPTY",
-    SHOW: "SHOW",
-    CREATE: "CREATE",
-    SAVING: "SAVING",
-    CONFIRM: "CONFIRM",
-    EDIT: "EDIT",
-    ERRORONSAVE: "ERRORONSAVE",
-    ERRORONDEL: "ERRORONDEL",
-    DELETING: "DELETING",
-  };
+  // define modes--------------------------------
+    const EMPTY= "EMPTY";
+    const SHOW= "SHOW";
+    const CREATE= "CREATE";
+    const SAVING= "SAVING";
+    const CONFIRM= "CONFIRM";
+    const EDIT= "EDIT";
+    const ERRORONSAVE= "ERRORONSAVE";
+    const ERRORONDEL= "ERRORONDEL";
+    const DELETING= "DELETING";
+  //--------------------------------------------- 
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -41,14 +31,12 @@ export default function Appointment(props) {
       student: name,
       interviewer: interviewer,
     };
-
     setinterview(id, interview)
       .then(() => {
         transition(SHOW);
       })
       .catch((err) => {
-        console.log(err);
-        transition(ERRORONSAVE, true);
+        transition(ERRORONSAVE);
       });
   }
 
@@ -62,10 +50,13 @@ export default function Appointment(props) {
   }
 
   const onAdd = (e) => transition(CREATE);
-  const onCancel = () => back();
+
+//this mode update part is for websocket, when receive a SET_INTERVIEW message and update the state, the display also need refresh by ckeck mode and interview
 
   if (mode === SHOW && !interview) transition(EMPTY);
   if (mode === EMPTY && interview) transition(SHOW);
+
+//---------------------------------------------------------------------------
 
   return (
     <Fragment>
@@ -80,29 +71,29 @@ export default function Appointment(props) {
           ></Show>
         )}
         {mode === CREATE && (
-          <Form interviewers={interviewers} onCancel={onCancel} onSave={save} />
+          <Form interviewers={interviewers} onCancel={back} onSave={save} />
         )}
         {mode === EDIT && (
           <Form
             interviewers={interviewers}
             interview={interview}
-            onCancel={onCancel}
+            onCancel={back}
             onSave={save}
           />
         )}
         {mode === SAVING && <Status message={"Saving"}></Status>}
         {mode === DELETING && <Status message={"Deleting"}></Status>}
         {mode === ERRORONDEL && (
-          <Error message={"Can not cancel the interview"} onClose={onCancel} />
+          <Error message={"Can not cancel the interview"} onClose={back} />
         )}
         {mode === ERRORONSAVE && (
-          <Error message={"Can not create the interview"} onClose={onCancel} />
+          <Error message={"Can not create the interview"} onClose={back} />
         )}
         {mode === CONFIRM && (
           <Confirm
             message={"Confirm to delete?"}
             onConfirm={onDelete}
-            onCancel={onCancel}
+            onCancel={back}
           ></Confirm>
         )}
       </article>

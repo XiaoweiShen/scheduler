@@ -28,6 +28,8 @@ function reducer(state, action) {
       };
       return { ...state, appointments: appointments };
     }
+    
+    /**setdayspots: once there is a operate to an appointment, find out the day of the appointment, check the amount of appointments and update the num of spots */
     case ACTIONS.SETDAYSPOTS: {
       const { id } = action;
       const index = getDayForAppointment(state.days, id);
@@ -44,6 +46,10 @@ function reducer(state, action) {
       }
       return { ...state, days: Object.values(days) };
     }
+    
+    /**Use in websocket part, when local end recieve a message of SET_INTERVIEW , compare the recieved interview data with local one, to check if the message is init by local end or from others.
+    if interview data is same, do nothing, if it is different,update state data per message**/ 
+    
     case ACTIONS.REFRESH: {
       const { id, interview } = action;
       const flag = eqinterview(
@@ -71,7 +77,7 @@ function reducer(state, action) {
   }
 }
 
-export default function useApplicationData(props) {
+export default function useApplicationDataReducer(props) {
   //local data structure-----------------------------------
   const [state, dispatch] = useReducer(reducer, {
     days: [],
@@ -110,6 +116,8 @@ export default function useApplicationData(props) {
     });
   };
 
+  // init websocket , only run once, add listener of message and catch the msg of SET_INTERVIEW and update state data accordingly.
+   
   useEffect(() => {
     const serverSocket = new WebSocket("ws://localhost:8001");
     serverSocket.onopen = (event) => {
