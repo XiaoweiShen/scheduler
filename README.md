@@ -6,61 +6,66 @@ This Scheduler has been designed to allow appointments to be booked Mon-Fri betw
 The stretch practice : Reducer and Websocket is also introduce into the project. when interview data is updated , server will be triggered to send out message to all connected link to synchronize the status of all clients. 
 
 ## Dependencies 
-   axios: "^1.2.1",
-   classnames: "^2.2.6",
-   normalize.css: "^8.0.1",
-   react: "^16.9.0",
-   react-dom: "^16.9.0",
-   react-hooks-testing-library: "^0.6.0",
-   react-test-renderer: "^16.9.0",
-   react-scripts: "3.4.4",
+   axios: "^1.2.1"
+   classnames: "^2.2.6"
+   normalize.css: "^8.0.1"
+   react: "^16.9.0"
+   react-dom: "^16.9.0"
+   react-hooks-testing-library: "^0.6.0"
+   react-test-renderer: "^16.9.0"
+   react-scripts: "3.4.4"
    yarn: "^1.22.19"
  
 
 ## to start the application 
 
 1. start the scheduler-api server:
-
+```bash
 /scheduler-api/npm start
-
+```
 2. start the scheduler application:
-
+```bash
 /scheduler/npm start
-
+```
 ## all tests of Project 
 
 The test part include: 
 1. Manually test components in isolation: use Storybook,From the root directory of the project and type npm run storybook:
-
+```bash
    npm run storybook
-
+```
 then open storybook at:
    
    http://localhost:9009/
 
 
 2. Run integration tests from the command line: use Jest.
-   npm test
-    PASS  src/helper/selectors.test.js
-    PASS  src/components/__tests__/DayListItem.test.js
-    PASS  src/hooks/__tests__/useVisualMode.test.js
-    PASS  src/components/__tests__/Button.test.js
-    PASS  src/components/__tests__/Form.test.js
-    PASS  src/components/__tests__/Application.test.js
-
+```bash
+npm test
+```
+   
 3. Run automated end-to-end tests in the browser: use Cypress.
    -Test the script by running the npm run test:server command in the scheduler-api directory.
-    npm run test:server
+   ```bash
+   npm run test:server
+   ```
    -Run the webpack development server from the root of our Interview Scheduler client project.
+    ```bash
     npm start
+    ```
    -Run Cypress 
+    ```bash
     npm run cypress
-
+    ```
 4. run  application in development mode: 
    -Test the script by running the npm run test:server command in the scheduler-api directory.
+    ```bash
     npm run error
+    ```
    -Run the webpack development server from the root of our Interview Scheduler client project.
+    ```bash
     npm start
+    ```
    -test error handling situation include add/edit/delete a interview.
   
 5. Tips about integration test 
