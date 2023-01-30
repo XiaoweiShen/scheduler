@@ -70,10 +70,10 @@ then open storybook at:
 ## Project snapshot
 1. Add and edit an appointment
 
-!["Add and edit a appointment"](/doc/add_edit_appointment.jpg)
+!["Add and edit a appointment"](/doc/addinterview.jpg)
 
 2. Deleting and Confirm an appointment
 
-!["Deleting and Confirm"](/doc/delete_confirm.jpg)
+!["Deleting and Confirm"](/doc/edit_delete_confirm.jpg)
 
 
